@@ -1,772 +1,1393 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M Ihsanur Adib — Geospatial Data Scientist</title>
+  <meta name="description" content="Portfolio of M Ihsanur Adib — Geospatial Data Scientist & WebGIS Developer">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg2: #0f1628;
+      --card: #131c35;
+      --card2: #1a2444;
+      --accent: #00d4aa;
+      --accent2: #4f8ef7;
+      --accent3: #f7c948;
+      --text: #e8eaf0;
+      --muted: #7a88b0;
+      --border: rgba(79,142,247,0.15);
+      --glow: rgba(0,212,170,0.12);
+    }
 
-  <title>M Ihsanur Adib</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  <!-- Favicons -->
-  <link href="assets/img/portfolio/fav/rifqi-logo-icon.ico" rel="icon">
-  <link href="assets/img/portfolio/fav/rifqi-logo.png" rel="apple-touch-icon">
+    html { scroll-behavior: smooth; }
 
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999;
+    }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
-  <!-- font awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
 
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
 
-  <!-- =======================================================
-  * Template Name: MyResume
-  * Updated: Jun 13 2023 with Bootstrap v5.3.0
-  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+      top: -100px; left: -100px;
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+
+    .hero-glow2 {
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(79,142,247,0.07) 0%, transparent 70%);
+      bottom: -50px; right: -50px;
+      animation: drift 10s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes drift {
+      from { transform: translate(0, 0); }
+      to { transform: translate(40px, 30px); }
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 2px;
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-name {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-title {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: rgba(232,234,240,0.75);
+      margin-bottom: 2rem;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 0.75rem 1.75rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+
+    .btn-primary:hover { background: #00ffcc; transform: translateY(-2px); }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.75rem 1.75rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-socials {
+      display: flex; gap: 1rem; margin-top: 2rem;
+    }
+
+    .hero-socials a {
+      width: 38px; height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .hero-socials a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--glow);
+    }
+
+    .hero-right {
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-box {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-card-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .section-line {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      margin-top: 1rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-photo-wrap {
+      position: relative;
+    }
+
+    .about-photo-wrap img {
+      width: 100%;
+      border-radius: 8px;
+      filter: grayscale(20%);
+      border: 1px solid var(--border);
+    }
+
+    .about-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 8px -8px -8px 8px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      z-index: -1;
+    }
+
+    .about-text p {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: rgba(232,234,240,0.8);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .detail-item {
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      font-size: 0.85rem;
+    }
+
+    .detail-label {
+      color: var(--muted);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .detail-val { color: var(--text); }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+
+    .skills-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .skill-group-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .skill-group-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.78rem;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--glow);
+    }
+
+    /* ── EXPERIENCE / TIMELINE ── */
+    #experience { background: var(--bg2); }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.45rem; top: 8px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg2);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .timeline-meta {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 0.4rem; flex-wrap: wrap;
+    }
+
+    .timeline-period {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent2);
+      letter-spacing: 0.08em;
+    }
+
+    .timeline-company {
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: var(--card2);
+      padding: 0.15rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    .timeline-role {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-list {
+      list-style: none;
+    }
+
+    .timeline-list li {
+      font-size: 0.87rem;
+      color: rgba(232,234,240,0.7);
+      line-height: 1.7;
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-list li::before {
+      content: '›';
+      position: absolute; left: 0;
+      color: var(--accent);
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--bg); }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .edu-card:hover { border-color: var(--accent); }
+
+    .edu-degree {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-school {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .edu-highlights li {
+      font-size: 0.82rem;
+      color: rgba(232,234,240,0.65);
+      line-height: 1.65;
+      list-style: none;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .edu-highlights li::before {
+      content: '·';
+      position: absolute; left: 0;
+      color: var(--accent3);
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: var(--bg2); }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .portfolio-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .portfolio-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,212,170,0.08);
+    }
+
+    .portfolio-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: var(--card2);
+    }
+
+    .portfolio-body {
+      padding: 1rem 1.2rem;
+    }
+
+    .portfolio-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .portfolio-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .portfolio-link {
+      font-size: 0.78rem;
+      color: var(--accent2);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      transition: color 0.2s;
+    }
+
+    .portfolio-link:hover { color: var(--accent); }
+
+    /* ── PUBLICATIONS ── */
+    #publications { background: var(--bg); }
+
+    .pub-list {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    .pub-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.5rem;
+    }
+
+    .pub-item p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: rgba(232,234,240,0.8);
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg2); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+    }
+
+    .contact-info-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-info-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .contact-items {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 36px; height: 36px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .contact-item-val {
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .contact-form {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-input {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    textarea.form-input { resize: vertical; min-height: 120px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .footer-text span { color: var(--accent); }
+
+    /* ── MOBILE NAV ── */
+    .mobile-menu-btn {
+      display: none;
+      background: none; border: none;
+      color: var(--text); font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    /* ── BACK TO TOP ── */
+    .back-top {
+      position: fixed; bottom: 2rem; right: 2rem;
+      width: 40px; height: 40px;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      font-size: 1rem;
+      z-index: 50;
+      opacity: 0; pointer-events: none;
+      transition: all 0.3s;
+    }
+
+    .back-top.show { opacity: 1; pointer-events: all; }
+    .back-top:hover { background: #00ffcc; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-cols { grid-template-columns: 1fr 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+    }
+
+    @media (max-width: 600px) {
+      .skills-cols { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-details { grid-template-columns: 1fr; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .fade-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .fade-up-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .fade-up-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .fade-up-delay-4 { animation-delay: 0.4s; opacity: 0; }
+    .fade-up-delay-5 { animation-delay: 0.5s; opacity: 0; }
+  </style>
 </head>
-
 <body>
 
-  <!-- ======= Mobile nav toggle button ======= -->
-  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
-  <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
-  <!-- ======= Header ======= -->
-  <header id="header" class="d-flex flex-column justify-content-center">
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">M Ihsanur Adib</div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+</nav>
 
-    <nav id="navbar" class="navbar nav-menu">
-      <ul>
-        <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
-        <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-        <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i>
-            <span>Portofolio</span></a></li>
-        <!-- <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Layanan</span></a></li> -->
-        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-      </ul>
-    </nav><!-- .nav-menu -->
-
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center">
-    <div class="container " data-aos="zoom-in" data-aos-delay="100">
-      <h1>M Ihsanur Adib</h1> <br>
-      <h3>Welcome to my portfolio website!</h3>
-      <p>Hi, I'm a <span class="typed"
-          data-typed-items="GIS Engineer, GIS Analyst, Spatial Data Scientist, Geospatial Full Stack Developer"></span>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-tag fade-up">// GEOSPATIAL DATA SCIENTIST</div>
+      <h1 class="hero-name fade-up fade-up-delay-1">M Ihsanur<br><span>Adib</span></h1>
+      <p class="hero-title fade-up fade-up-delay-2">GIS Engineer · WebGIS Developer · Spatial Data Scientist</p>
+      <p class="hero-desc fade-up fade-up-delay-3">
+        3+ years transforming geospatial complexity into actionable insight. Currently building spatial intelligence at APRIL, Riau — from satellite imagery to strategic forest planning.
       </p>
-      <br>
+      <div class="hero-ctas fade-up fade-up-delay-4">
+        <a href="https://drive.google.com/file/d/1vCMnyBP9PN0BACzbGHyW18iMze-ghSAV/view?usp=sharing" target="_blank" class="btn-primary">
+          <i class="fas fa-download"></i> Download CV
+        </a>
+        <a href="#contact" class="btn-outline">
+          <i class="fas fa-paper-plane"></i> Get in Touch
+        </a>
+      </div>
+      <div class="hero-socials fade-up fade-up-delay-5">
+        <a href="https://www.linkedin.com/in/mihsanuradib/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/ihsanuradib" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://medium.com/@ihsanuradib1" target="_blank" title="Medium"><i class="fab fa-medium-m"></i></a>
+        <a href="https://www.instagram.com/ihsanuradib13/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-card-title">// Quick Stats</div>
+        <div class="stat-grid">
+          <div class="stat-box">
+            <span class="stat-num">3+</span>
+            <span class="stat-label">Years Exp.</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">10+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">3</span>
+            <span class="stat-label">Publications</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">3.55</span>
+            <span class="stat-label">GPA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// 01. About Me</span>
+      <h2 class="section-title">Who I Am</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img src="assets/img/adib.jpg" alt="M Ihsanur Adib">
+      </div>
+      <div class="about-text">
+        <p>
+          Geospatial Data Analyst and Spatial Data Scientist with 3+ years of experience, currently serving as <strong>Strategic Planner (Spatial Modeling & Landbank Analyst)</strong> at APRIL, one of the world's largest pulp and paper companies, based in Riau.
+        </p>
+        <p>
+          I specialize in transforming complex geospatial datasets into strategic intelligence — from building wood supply-demand forecast models to conducting remote sensing-based landcover analysis and developing automated WebGIS platforms.
+        </p>
+        <p>
+          Graduate of <strong>Cartography and Remote Sensing at Universitas Gadjah Mada</strong> (GPA 3.55/4.00), with academic recognition including a Gold Medal at the International Science and Invention Fair 2021 and the Karya Salemba Empat Scholarship.
+        </p>
+        <div class="about-details">
+          <div class="detail-item">
+            <span class="detail-label">📍 Location:</span>
+            <span class="detail-val">Riau / Jakarta, Indonesia</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">🎓 Degree:</span>
+            <span class="detail-val">S1 Cartography & Remote Sensing</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">📧 Email:</span>
+            <span class="detail-val">ihsanuradib1@gmail.com</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">🌐 GitHub:</span>
+            <span class="detail-val">github.com/ihsanuradib</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">🎯 Status:</span>
+            <span class="detail-val" style="color: var(--accent);">Open to Opportunities</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">🎨 Hobbies:</span>
+            <span class="detail-val">Travelling, Futsal, Music, Coding</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// 02. Skills</span>
+      <h2 class="section-title">Technical Stack</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-cols">
+      <div class="skill-group">
+        <div class="skill-group-title">GIS & Remote Sensing</div>
+        <div class="skill-tags">
+          <span class="skill-tag">ArcGIS Pro</span>
+          <span class="skill-tag">QGIS</span>
+          <span class="skill-tag">ENVI</span>
+          <span class="skill-tag">Google Earth Engine</span>
+          <span class="skill-tag">Remote Sensing</span>
+          <span class="skill-tag">Spatial Modelling</span>
+          <span class="skill-tag">LiDAR Processing</span>
+          <span class="skill-tag">HEC-RAS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Programming</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">R / RStudio</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">Geemap</span>
+          <span class="skill-tag">Pandas / NumPy</span>
+          <span class="skill-tag">Microsoft Azure</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">WebGIS & Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Leaflet.js</span>
+          <span class="skill-tag">OpenLayers</span>
+          <span class="skill-tag">GeoServer</span>
+          <span class="skill-tag">PostgreSQL/PostGIS</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">ArcGIS Experience Builder</span>
+          <span class="skill-tag">Bootstrap</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Analytics & Visualization</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">Google Data Studio</span>
+          <span class="skill-tag">Jupyter Lab</span>
+          <span class="skill-tag">ArcGIS Dashboard</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Machine Learning (RF)</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Forestry & Planning</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Remsoft Application</span>
+          <span class="skill-tag">Long-Range Planning (LRP)</span>
+          <span class="skill-tag">HCS Assessment</span>
+          <span class="skill-tag">FSC / SFMP 2.0</span>
+          <span class="skill-tag">Wood Supply Modelling</span>
+          <span class="skill-tag">Due Diligence</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Soft Skills</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Leadership</span>
+          <span class="skill-tag">Team Collaboration</span>
+          <span class="skill-tag">Analytical Thinking</span>
+          <span class="skill-tag">Problem Solving</span>
+          <span class="skill-tag">Innovation</span>
+          <span class="skill-tag">Communication</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// 03. Experience</span>
+      <h2 class="section-title">Work History</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">Oct 2023 — Present</span>
+          <span class="timeline-company">APRIL · Riau</span>
+        </div>
+        <div class="timeline-role">Strategic Planner — Spatial Modeling & Landbank Analyst</div>
+        <ul class="timeline-list">
+          <li>Developed wood supply-and-demand models to forecast global capability using Python & Remsoft Application</li>
+          <li>Conducted digital due diligence for new potential areas and preliminary High Carbon Stock (HCS) assessments aligned with FSC and SFMP 2.0 forest certification standards</li>
+          <li>Executed long-range planning (LRP) and resource optimization to streamline pulp production and maximize wood resource efficiency</li>
+          <li>Managed comprehensive geodatabases and landcover time-series analyses to monitor concession areas</li>
+          <li>Developed WebGIS and spatial databases for integrated monitoring in strategic planning</li>
+          <li>Created automation apps for due diligence, landbank reporting, inventory layouts, and IOP monitoring</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">Mar 2023 — Oct 2023</span>
+          <span class="timeline-company">Ministry of Public Works & Housing · Jakarta</span>
+        </div>
+        <div class="timeline-role">WebGIS Programmer</div>
+        <ul class="timeline-list">
+          <li>Developed a WebGIS-based flood prediction model integrating real-time AWLR data and precipitation using PHP, JavaScript, Leaflet & Bootstrap</li>
+          <li>Merged LiDAR and echosounder data to create high-precision topographic/bathymetric models for watershed management</li>
+          <li>Conducted topographic and bathymetric data acquisition using Matrice 300 RTK drone and Garmin 585s Echosounder</li>
+          <li>Provided geospatial insights for urban development permits and riverbank risk mitigation policies</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">Aug 2022 — Nov 2022</span>
+          <span class="timeline-company">PT Global Data Inspirasi · Yogyakarta</span>
+        </div>
+        <div class="timeline-role">Spatial Data Analyst</div>
+        <ul class="timeline-list">
+          <li>Analyzed geospatial data for education, tourism, and transportation to assist regional government policy-making</li>
+          <li>Conducted field surveys to validate geospatial accuracy for Tableau and ArcGIS monitoring dashboards</li>
+          <li>Scraped, cleaned, and processed geospatial big data; created SQL databases</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">Jun 2022 — Sep 2022</span>
+          <span class="timeline-company">PT Ruang Raya Indonesia (Ruang Guru) · Jakarta</span>
+        </div>
+        <div class="timeline-role">Edu-Content Data Intern</div>
+        <ul class="timeline-list">
+          <li>Cleaned and organized databases for academic operations at Brain Academy</li>
+          <li>Analyzed weekly ratings and attendance data; created visualizations for weekly academic reports</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">Apr 2021 — Apr 2022</span>
+          <span class="timeline-company">ESRI Indonesia · Jakarta</span>
+        </div>
+        <div class="timeline-role">Project Intern & GIS Assistant</div>
+        <ul class="timeline-list">
+          <li>Built WebGIS dashboards for disaster risk monitoring using ArcGIS Dashboard and Experience Builder</li>
+          <li>Created drone-based 3D mapping and community WebGIS for disaster risk management</li>
+          <li>Developed deep learning-based real-time crowd detection mapping using CCTV (YOLO algorithm)</li>
+          <li>Built SDGs multivariate maps and Damkar asset management system for BPBD East Java</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">Feb 2022 — Jul 2022</span>
+          <span class="timeline-company">Universitas Gadjah Mada · Yogyakarta</span>
+        </div>
+        <div class="timeline-role">Remote Sensing Practicum Assistant</div>
+        <ul class="timeline-list">
+          <li>Guided 33 students in remote sensing, hyperspectral, and non-photographic image processing using R</li>
+          <li>Managed and reported student grade data for the Remote Sensing Practicum</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">Dec 2021 — Feb 2022</span>
+          <span class="timeline-company">TNI Angkatan Udara · Jakarta</span>
+        </div>
+        <div class="timeline-role">Internship — Aerial Survey & Cartography</div>
+        <ul class="timeline-list">
+          <li>Analyzed aerial photographs (small, medium, large format) and processed them into mosaics, orthophotos, and flight plans</li>
+          <li>Produced aeronautical maps: Navigasi Udara Taktis, Operasi, Enroute Charts, and Situasi Pangkalan Udara maps</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-period">Dec 2021</span>
+          <span class="timeline-company">BMKG · Internship</span>
+        </div>
+        <div class="timeline-role">Geophysics Station Intern</div>
+        <ul class="timeline-list">
+          <li>Entered synop observation data to BMKGeosoft; picked seismic waves on SeiscomP</li>
+          <li>Created a spatiotemporal seismic animation map project</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// 04. Education</span>
+      <h2 class="section-title">Academic Background</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card" style="border-top: 3px solid var(--accent);">
+        <div class="edu-degree">S1 — Cartography &amp; Remote Sensing</div>
+        <div class="edu-school">Universitas Gadjah Mada · Yogyakarta</div>
+        <div class="edu-year">2018 — 2022 &nbsp;|&nbsp; GPA 3.55 / 4.00</div>
+        <ul class="edu-highlights">
+          <li>Gold Medal — International Science and Invention Fair (2021)</li>
+          <li>Awardee — Karya Salemba Empat Scholarship (2020, 2021)</li>
+          <li>Awardee — Peningkatan Prestasi Akademik (2019)</li>
+          <li>MBKM Kedeireka (Dikti 2022) & Studi Independen (2021)</li>
+          <li>PKM Funding — Ministry of Education, Culture, Research & Technology (2021)</li>
+          <li>Capstone: Geospatial Big Data for Mapping Jakarta Traffic via Twitter API</li>
+        </ul>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">SMA — Science Major</div>
+        <div class="edu-school">SMAN 3 Batusangkar · West Sumatera</div>
+        <div class="edu-year">2015 — 2018</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// 05. Portfolio</span>
+      <h2 class="section-title">Selected Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card">
+        <img src="assets/img/1.png" alt="ArcGIS Experience Builder" class="portfolio-img">
+        <div class="portfolio-body">
+          <div class="portfolio-type">Esri · WebGIS Platform</div>
+          <div class="portfolio-title">ArcGIS Experience Builder — Monitoring Dashboard</div>
+          <a href="https://experience.arcgis.com/experience/5765e8a8f81c42488681f2a7368efcb5" target="_blank" class="portfolio-link">
+            <i class="fas fa-external-link-alt"></i> View Project
+          </a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="assets/img/2.png" alt="ArcGIS Web Map Slider" class="portfolio-img">
+        <div class="portfolio-body">
+          <div class="portfolio-type">Esri · Web Map</div>
+          <div class="portfolio-title">ArcGIS Web Map Slider — Temporal Analysis</div>
+          <a href="https://ugmofficial.maps.arcgis.com/apps/instant/slider/index.html?appid=5330a25f2bb24e949c69b606860fb698" target="_blank" class="portfolio-link">
+            <i class="fas fa-external-link-alt"></i> View Project
+          </a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="assets/img/3.png" alt="ArcGIS Dashboard" class="portfolio-img">
+        <div class="portfolio-body">
+          <div class="portfolio-type">Esri · Dashboard</div>
+          <div class="portfolio-title">ArcGIS Dashboard — Operational Analytics</div>
+          <a href="https://ugmofficial.maps.arcgis.com/apps/dashboards/c3543d13c1454e98a6440e618e9ca2cc" target="_blank" class="portfolio-link">
+            <i class="fas fa-external-link-alt"></i> View Project
+          </a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="assets/img/5.png" alt="ArcGIS Dashboard 2" class="portfolio-img">
+        <div class="portfolio-body">
+          <div class="portfolio-type">Esri · Dashboard</div>
+          <div class="portfolio-title">ArcGIS Dashboard — Asset Management</div>
+          <a href="https://ugmofficial.maps.arcgis.com/apps/dashboards/4924a917baaa4f0a909892516b67f48a" target="_blank" class="portfolio-link">
+            <i class="fas fa-external-link-alt"></i> View Project
+          </a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="assets/img/8.png" alt="ArcGIS Story Maps" class="portfolio-img">
+        <div class="portfolio-body">
+          <div class="portfolio-type">Esri · Story Maps</div>
+          <div class="portfolio-title">ArcGIS Story Maps — Environmental Narrative</div>
+          <a href="https://arcg.is/105inD" target="_blank" class="portfolio-link">
+            <i class="fas fa-external-link-alt"></i> View Project
+          </a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <img src="assets/img/7.png" alt="ArcGIS Story Maps 2" class="portfolio-img">
+        <div class="portfolio-body">
+          <div class="portfolio-type">Esri · Story Maps</div>
+          <div class="portfolio-title">ArcGIS Story Maps — Spatial Research</div>
+          <a href="https://arcg.is/TyHe00" target="_blank" class="portfolio-link">
+            <i class="fas fa-external-link-alt"></i> View Project
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="https://www.canva.com/design/DAFZ0AOtWM8/Y32L93NyGzDnn8sUevZgzA/edit" target="_blank" class="btn-outline">
+        <i class="fas fa-images"></i> View Full Portfolio Gallery
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications" style="background: var(--bg);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// 06. Research</span>
+      <h2 class="section-title">Publications</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item">
+        <p>Pemetaan Multi-Tingkat Potensi Bijih Besi Menggunakan Citra Hyperspektral EO-1 Hyperion Dan Multispektral Landsat 8-OLI Di Sekitar Sungai Progo, Yogyakarta</p>
+      </div>
+      <div class="pub-item">
+        <p>Correlation of Drought and Fire Hotspots using Standardized Precipitation Index (SPI) from TRMM Rainfall Data (2015–2019) at Central Kalimantan, Indonesia</p>
+      </div>
+      <div class="pub-item">
+        <p>Mapping of Regional Vulnerability to Determine Malaria Using Physical, Climate, and Socio-demographic Variables in Purworejo Regency, Central Java</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// 07. Contact</span>
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
       <div>
-        <a href="https://drive.google.com/file/d/1vCMnyBP9PN0BACzbGHyW18iMze-ghSAV/view?usp=sharing" target="_blank"
-          class="unduh">Download CV</a>
-      </div>
-      <div class="social-links">
-        <!--         <a href="https://twitter.com/home" class="twitter"><i class="bx bxl-twitter"></i></a> -->
-        <a href="https://medium.com/@ihsanuradib1" class="medium"><i class="bi-medium"></i></i>
-          </i></a>
-        <a href="https://www.instagram.com/ihsanuradib13/" class="instagram_" target="_blank"><i
-            class="bx bxl-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/mihsanuradib/" class="linkedin_" target="_blank"><i
-            class="bx bxl-linkedin"></i></a>
-      </div>
-    </div>
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>About</h2>
-          <p>Graduate in Cartography and Remote Sensing from Universitas Gadjah Mada. I have developed a strong
-            foundation in Spatial
-            Data Science. My skills in creativity, logical thinking, and analytical thinking have allowed me to excel in
-            this field.
-            I am passionate about data science, spatial data processing, and have experience using as well as
-            programming languages
-            such as Python, R, Javascript and SQL, allowing me to effectively manage, analyze, and present geospatial
-            data. I have
-            experience working with databases such as MySQL, PostgreSQL and PostGIS, and am proficient in WebGis mapping
-            technologies such as OpenLayers, Leaflet, and Geoserver, and Esri Web Apps. I am passionate about the
-            geospatial sector,
-            continuously learning and growing as a professional
-
-            I am an effective communicator, a skilled problem solver, and a collaborative team player. My passion for
-            the geospatial sector drives me to continuously learn and grow as a professional.</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4">
-            <img src="assets/img/adib.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-8 pt-4 pt-lg-0 content">
-            <h3>Spatial Data Science &amp; WebGis Developer.</h3>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Github:</strong>
-                    <span>https://github.com/ihsanuradib</span>
-                  </li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Hobby:</strong> <span>Travelling, play Music and
-                      Coding</span>
-                  </li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>South Jakarta, Indonesia</span>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>23</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Bachelor</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>ihsanuradib1@gmail.com</span>
-                  </li>
-                </ul>
-              </div>
+        <div class="contact-info-title">Let's work together</div>
+        <p class="contact-info-desc">
+          Open to new opportunities in geospatial data science, WebGIS development, or spatial analytics. Feel free to reach out!
+        </p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-val">ihsanuradib1@gmail.com</div>
             </div>
           </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
-
-
-    <!-- Softskills Section -->
-    <section id="softskills" class="skills section-bg">
-      <div class="container" data-aos="fade-up">
-        <div class="section-title">
-          <h2>Softskills</h2>
-          <p>Here are my softskills:</p>
-
-          <div class="row skills-content" style="display: flex; padding: 0 2em;">
-            <table>
-              <tr>
-                <th>
-                  <div class="progress">
-                    <span class="skill">Leadership</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="progress">
-                    <span class="skill">Team Collaboration</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="progress">
-                    <span class="skill">innovative</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="progress">
-                    <span class="skill">Creativity</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="progress">
-                    <span class="skill">Analytical</span>
-                  </div>
-                </th>
-
-              </tr>
-            </table>
-          </div>
-        </div>
-    </section><!-- End Softskills Section -->
-
-    <!-- Hardskills Section -->
-    <section id="hardskills" class="skills section-bg">
-      <div class="container" data-aos="fade-up">
-        <div class="section-title">
-          <h2>Hardskills</h2>
-          <p>Here are my hardskills:</p>
-        </div>
-
-        <div class="row skills-content" style="display: flex; padding: 0 2em;">
-          <table>
-            <tr>
-              <th>
-                <div class="progress">
-                  <span class="skill">Spatial Analyst</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill"></span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">Programming</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">WebGIS Development</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">Spatial Modelling</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">Spatial Data Science</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill"></span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill"></span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill"></span>
-                </div>
-              </th>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </section><!-- End Hardskills Section -->
-
-    <!-- Software Section -->
-    <section id="software" class="skills section-bg">
-      <div class="container" data-aos="fade-up">
-        <div class="section-title">
-          <h2>Software</h2>
-          <p>Here are the software I use:</p>
-        </div>
-
-        <div class="row skills-content" style="display: flex; padding: 0 2em;">
-          <table>
-            <tr>
-              <th>
-                <div class="progress">
-                  <span class="skill">ArcGIS</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">QGIS</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">Visual Studio Code</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">ENVI</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">R Studio</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">Jupyter Lab</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">Tableau</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">Google Data Studio</span>
-                </div>
-              </th>
-              <th>
-                <div class="progress">
-                  <span class="skill">Adobe Editor</span>
-                </div>
-              </th>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </section><!-- End Software Section -->
-
-    <!-- ======= Resume Section ======= -->
-    <section id="resume" class="resume">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Resume</h2>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <h3 class="resume-title">Sumary</h3>
-            <div class="resume-item pb-0">
-              <h4>M Ihsanur Adib</h4>
-              <p>
-                Graduate from Cartography and Remote Sensing with a strong background in Geographic Information Systems
-                (GIS) and a current position as a Spatial Modelling and Landbank Analyst at APRIL (Asia Pacific
-                Resources International Holdings).
-                Seeking opportunities to leverage my analytical and logical thinking abilities, combined with a keen
-                interest in information technology, to visualize spatial data using cloud and web-based technologies,
-                programming languages, and Geospatial tools.
-              </p>
-              <!-- <ul>
-                <li>Kota Bandung</li>
-                <li>(123) 456-7891</li>
-                <li>alice.barkley@example.com</li>
-              </ul> -->
-
-            </div>
-
-
-
-            <h3 class="resume-title">Pendidikan</h3>
-            <div class="resume-item">
-              <h4>Universitas Gadjah Mada</h4>
-              <h5>2018 - 2022</h5>
-              <p><em>S1 - Cartography and Remote Sensing</em></p>
-              <div class="bi bi-star-fill"> Capstone Project : Utilization of Geospatial Big Data for Mapping
-                Traffic Conditions in DKI Jakarta
-                Using Twitter API</div>
-              <div class="bi bi-star-fill">
-                Participated in MBKM Kedaireka at PT Global Data Inspirasi (2022)</div>
-              <div class="bi bi-star-fill">
-                Participated in MBKM Studi Independen at MyduSolve on "Data Science Track Program" (2022)</div>
-              <div class="bi bi-star-fill"> Gold medal winner International Science And Invention Fair (2021)
-              </div>
-              <div class="bi bi-star-fill"> Funding for Student Creativity Program (PKM) in the Field of
-                Intellectual
-                Property by
-                the Ministry of Education, Culture, Research, and Technology (2021)</div>
-              <div class="bi bi-star-fill"> Awardee of Karya Salemba Empat Scholarship (2021)</div>
-              <div class="bi bi-star-fill">
-                Participated in MBKM Studi Independen at MEduSolve on "Data Science Track Program" (2021)</div>
-              <div class="bi bi-star-fill"> Awardee of Karya Salemba Empat Scholarship (2020)</div>
-              <div class="bi bi-star-fill"> Awardee of Peningkatan Prestasi Akademik (2019)</div>
-            </div>
-            <div class="resume-item">
-              <h4>SMAN 3 Batusangkar</h4>
-              <h5>Jul 2016 - May 2018</h5>
-              <p><em>Science Major</em></p>
-              <p>
-              </p>
-            </div>
-            <div class="resume-item">
-
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
+            <div>
+              <div class="contact-item-label">LinkedIn</div>
+              <div class="contact-item-val">linkedin.com/in/mihsanuradib</div>
             </div>
           </div>
-
-          <div class="col-lg-6">
-            <h3 class="resume-title">Professional Experience</h3>
-            <div class="resume-item">
-              <h4>Spatial Modelling and Landbank Analyst</h4>
-              <h5>Oct 2023 - Now</h5>
-              <p><em>APRIL (Asia Pacific Resources International Holdings)</em></p>
-              <ul>
-                <li>Provided landbank data for inventory, Permanent Sample Plot audit, silviculture trials, and
-                  long-range strategic
-                  planning (RKU and RKT)</li>
-                <li>Audit and monitoring landbank implementation accuracy using both field methods and remote sensing
-                  methods, specifically
-                  machine learning random forest classification using Python Geemap.</li>
-                <li>Performed spatial and image analysis for due diligence to assess potential increases in landbank
-                </li>
-                <li>Conducted regular IOP accuracy monitoring through satellite imagery analysis</li>
-                <li>Develop webGIS and spatial databases for integrated monitoring in strategic planning</li>
-                <li>Create automation applications for efficient processing of spatial data, including due diligence
-                  automation process and
-                  reporting, landbank automation applications and reporting, automation layout for inventory, LRP
-                  automation process, and
-                  IOP automation applications monitoring.</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>WebGIS Programmer</h4>
-              <h5>Feb 2023 - Oct 2023</h5>
-              <p><em>Ministry of Public Work and Housing</em></p>
-              <ul>
-                <li>Conducted topographic and bathymetric data acquisition using the Matrice 300 RTK drone and Garmin
-                  585s Echosounder.</li>
-                <li>Store flood modeling data from LIDAR processing using HEC-RAS into a database for visualization on
-                  the web.</li>
-                <li>Processed data for webGIS requirements using spatial software</li>
-                <li>Developed a webGIS flood prediction model using PHP, JavaScript, Leaflet, and Bootstrap framework,
-                  with PostgreSQL and
-                  PostGIS for the database.</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Spatial Data Analyst</h4>
-              <h5>Aug 2022 – Nov 2022</h5>
-              <p><em>Global Data Inspirasi</em></p>
-              <ul>
-                <li>Scraped and cleaned geospatial big data for transportation, tourism, and education cases</li>
-                <li>Created databases using SQL queries.</li>
-                <li>Produced reports and insights on people's mobility using ArcGIS and Tableau for visualization.</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Edu-Content Data Intern </h4>
-              <h5>Jun 2022 – Sep 2022</h5>
-              <p><em>PT Ruang Raya Indonesia | Ruang Guru (LEAP) </em></p>
-              <ul>
-                <li>Cleaned and organized databases for academic operations at Brain Academy.</li>
-                <li>Analyzed weekly data on ratings and attendance to gather insights about academic performance</li>
-                <li>Created visualizations of academic statistics data for weekly reports.</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Data Science Mentee</h4>
-              <h5>Feb 2022 – Jul 2022
-              </h5>
-              <p><em>MyEduSolve Indonesia</em></p>
-              <ul>
-                <li>Processed data for small and medium-sized businesses using tools such as Microsoft Excel, Python,
-                  and
-                  Microsoft Azure</li>
-                <li>Cleaned and processed data to gathered insights form UMKM data Kitong.id.</li>
-                <li>Created a relational database for UMKM data from Kitong.id.</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Remote Sensing Practicum Assistant</h4>
-              <h5>Feb 2022 – Jul 2022
-              </h5>
-              <p><em>Gadjah Mada University</em></p>
-              <ul>
-                <li>Guided 33 students to understand about remote sensing, hyperspectral and non photographic image.
-                </li>
-                <li>Use R Studio and R languages for processing practicum data</li>
-                <li>Accumulated and reported 33 student grade data at Remote sensing Practicum</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>GIS Assistant</h4>
-              <h5>Feb 2022 – Apr 2022
-              </h5>
-              <p><em>ESRI Indonesia x Canari Foundation</em></p>
-              <ul>
-                <li>Designed and built a map from image drone data using Arcgis and creted 3D model Map</li>
-                <li>Trained and Guided village youth organization for disaster risk management Using GIS</li>
-                <li>Developed a WebGIS for monitoring and evaluating the disaster risk management system</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Internship </h4>
-              <h5>Dec 2021 - Feb 2022</h5>
-              <p><em>Dinas Survei dan Pemotretan Udara TNI Angkatan Udara</em></p>
-              <ul>
-                <li>Analyzed data in the subdis potrud product in the form of aerial photographs from each Small format,
-                  Medium Format, and Large format
-                  as well as processed the data to become geospatial information such mosaic, orthophoto, and aerial
-                  survey flight plan
-                </li>
-                <li>Studied and Implemented the process of spatial data acquisition through terrestrial surveys in
-                  Subdis Surta to build a validation database
-                  used by subdis potrud</li>
-                <li>Studied and Implemented the process of visualized aerial photo and field data in the subdis karto to
-                  be visualized into the form of
-                  aeronautical maps such Situasi Pangkalan Udara Map, Navigasi Udara Taktis Map, Navigasi Udara Operasi
-                  Map, Enroute Chart and
-                  Dissurpotrud product other</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Geophysics Station Intern</h4>
-              <h5>Dec 2021</h5>
-              <p><em>Meteorology, Climatology, and Geophysics (BMKG) </em></p>
-              <ul>
-                <li>Entered daily synop data from period instrumentation observation to BMKGeosoft website</li>
-                <li>Picking seismic waves on SeiscomP, collected data on wind and pressure measurement manually. </li>
-                <li>Created a spatiotemporal seismic animation map project</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>Project Intern</h4>
-              <h5>Apr 2021 - Jul 2021</h5>
-              <p><em>ESRI Indonesia</em></p>
-              <ul>
-                <li>Make a Multivariate Maps about implementation of 1st point in SDGs.</li>
-                <li>Implemented Project about detecting and mapping of crowd-based Deep Learning uses visualization
-                  webGIS in near real-time </li>
-                <li>Designed and Built a Mapping and Crowd detection project using Deep Learning-based CCTV and
-                  visualize it into WebGIS form in Real TimeImplemented Yolo's Deep Learning Algorithm for image and
-                  video based object detectionStudied and Implemented WebGIS-based map visualization forms in real time
-                </li>
-                <li>Implemented Jabar Fire Project to make Damkar’s Asset Management with BPBD of East Java using ArcGIS
-                  Dashboard and ArcGIS
-
-                  Experience Builder to Monitored and Evaluated Damkar's Asset for Fire Risk Management in East Java
-                </li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fab fa-github"></i></div>
+            <div>
+              <div class="contact-item-label">GitHub</div>
+              <div class="contact-item-val">github.com/ihsanuradib</div>
             </div>
           </div>
-        </div>
-
-      </div>
-    </section><!-- End Resume Section -->
-
-    <!-- ======= Portofolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Portfolio</h2>
-          <p>Here are products that i have made</p>
-        </div>
-
-        <!-- <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-            <ul id="portfolio-flters">
-              <li data-filter=".filter-proyekkuliah">College Project</li>
-              <li data-filter=".filter-pp">Professional Experience</li>
-            </ul>
-          </div>
-        </div> -->
-
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-proyekkuliah">
-            <div class="portfolio-wrap">
-              <img src="assets/img/1.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Portofolio 1</h4>
-                <p> ArcGis Experience Builder</p>
-                <div class="portfolio-links">
-                  <a href="https://experience.arcgis.com/experience/5765e8a8f81c42488681f2a7368efcb5"
-                    data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-proyekkuliah">
-            <div class="portfolio-wrap">
-              <img src="assets/img/2.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Portofolio 2 2</h4>
-                <p>ArcGIS Web Map Slider</p>
-                <div class="portfolio-links">
-                  <a href="https://ugmofficial.maps.arcgis.com/apps/instant/slider/index.html?appid=5330a25f2bb24e949c69b606860fb698"
-                    data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-proyekkuliah">
-            <div class="portfolio-wrap">
-              <img src="assets/img/3.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Portofolio 3</h4>
-                <p>ArcGIs Dashboard</p>
-                <div class="portfolio-links">
-                  <a href="https://ugmofficial.maps.arcgis.com/apps/dashboards/c3543d13c1454e98a6440e618e9ca2cc"
-                    data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-proyekkuliah">
-            <div class="portfolio-wrap">
-              <img src="assets/img/5.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Portofolio 4</h4>
-                <p>ArcGis Dashboard</p>
-                <div class="portfolio-links">
-                  <a href="https://ugmofficial.maps.arcgis.com/apps/dashboards/4924a917baaa4f0a909892516b67f48a"
-                    data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-proyekkuliah">
-            <div class="portfolio-wrap">
-              <img src="assets/img/8.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Portofolio 5</h4>
-                <p>ArcGis Story Maps</p>
-                <div class="portfolio-links">
-                  <a href="https://arcg.is/105inD" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                    title=""><i class="bx bx-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-proyekkuliah">
-            <div class="portfolio-wrap">
-              <img src="assets/img/7.png" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Portofolio 6</h4>
-                <p>ArcGis Story Maps</p>
-                <div class="portfolio-links">
-                  <a href="https://arcg.is/TyHe00" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                    title=""><i class="bx bx-plus"></i></a>
-                </div>
-              </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div class="contact-item-label">Location</div>
+              <div class="contact-item-val">Riau / Jakarta, Indonesia</div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <!-- End Portfolio Section -->
-
-
-
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials section-bg">
-      <div class="container" data-aos="fade-up">
+      <form class="contact-form" onsubmit="sendEmail(event)">
+        <div class="form-row">
+          <input type="text" class="form-input" id="name" placeholder="Your Name" required>
+          <input type="email" class="form-input" id="email" placeholder="Your Email" required>
+        </div>
+        <input type="text" class="form-input" id="subject" placeholder="Subject" required>
+        <textarea class="form-input" id="message" placeholder="Your Message" required></textarea>
         <div>
-          <div class="testimonial-item">
-            <div class="testimonial-item">
-              <h5>Further information about my portofolio, Click image below!</h5>
-              <a href="https://www.canva.com/design/DAFZ0AOtWM8/Y32L93NyGzDnn8sUevZgzA/edit?utm_content=DAFZ0AOtWM8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
-                target="_blank">
-                <img src="assets/img/portfolio/hr.png" alt="click here" class="testimonial-img">
-              </a>
-            </div>
-          </div>
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
         </div>
-        <!-- End testimonial item -->
-
-      </div>
-    </section><!-- End Testimonials Section -->
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Contact</h2>
-        </div>
-
-        <div class="row mt-1">
-
-          <div class="col-lg-4">
-
-            <div class="info">
-              <div class="address">
-                <a href="" target="_blank">
-                  <i class="bi bi-geo-alt"></i>
-                  <h4>Location:</h4>
-                  <p>Jl. Taman Setia Budi I No.5, RT.2/RW.2, Kuningan, Setia Budi, Jakarta, Kota Jakarta Selatan, Daerah
-                    Khusus Ibukota Jakarta</p>
-                </a>
-              </div>
-
-              <div class="email">
-                <a href="mailto:ihsanuradib1@gmail.com" target="_blank">
-                  <i class="bi bi-envelope"></i>
-                  <h4>Email:</h4>
-                  <p>ihsanuradib1@gmail.com</p>
-                </a>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-lg-8 mt-5 mt-lg-0">
-
-            <form method="post" onsubmit="sendEmail(); reset(); return false;" class="form-contact" id="submit"
-              action="#">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="text-center"><button type="submit" class="unduh" onclick="sendEmail()">Send Message</button>
-                </div>
-            </form>
-
-          </div>
-
-        </div>
-
-      </div>
-      <p><br><br></p>
-    </section><!-- End Contact Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <p> Find me on social media.</p>
-      <div class="socmed">
-        <a target="_blank" href="https://www.instagram.com/ihsanuradib13/" class="instagram"></a>
-        <a target="_blank" href="https://www.linkedin.com/in/mihsanuradib/" class="linkedin"></a>
-      </div>
-      <div class="copyright">
-        &copy; Copyright <strong><span>MyResume</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
+      </form>
     </div>
-  </footer>
-  <!-- End Footer -->
+  </div>
+</section>
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">
+    © 2024 <span>M Ihsanur Adib</span> · Built with passion for geospatial innovation
+  </div>
+</footer>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+<a href="#hero" class="back-top" id="backTop"><i class="fas fa-arrow-up"></i></a>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
-  <script src="forms/form.js"></script>
+<script>
+  // Back to top
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', window.scrollY > 400);
+  });
 
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+
+  // Simple send email handler
+  function sendEmail(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    const mailto = `mailto:ihsanuradib1@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('From: ' + name + '\nEmail: ' + email + '\n\n' + message)}`;
+    window.open(mailto);
+  }
+
+  // Mobile menu toggle
+  let mobileOpen = false;
+  function toggleMobileMenu() {
+    const links = document.querySelector('.nav-links');
+    mobileOpen = !mobileOpen;
+    if (mobileOpen) {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(10,14,26,0.97);padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid var(--border);';
+    } else {
+      links.style.cssText = 'display:none;';
+    }
+  }
+
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animation = 'fadeInUp 0.6s ease forwards';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.timeline-item, .skill-group, .portfolio-card, .edu-card, .pub-item').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+</script>
 </body>
-
 </html>
