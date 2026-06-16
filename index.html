@@ -1165,6 +1165,17 @@
     <div class="portfolio-grid">
 
       <div class="portfolio-card">
+        <img src="assets/img/flood-ews.svg" alt="Indonesia Flood Risk EWS" class="portfolio-img">
+        <div class="portfolio-body">
+          <div class="portfolio-type">WebGIS · Python FastAPI + Leaflet</div>
+          <div class="portfolio-title">Indonesia Flood Risk EWS — Early Warning &amp; Flood Inundation Mapper</div>
+          <a href="https://ihsanuradib.github.io/indonesia-flood-risk-ews/" target="_blank" class="portfolio-link">
+            <i class="fas fa-external-link-alt"></i> View Project
+          </a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
         <img src="assets/img/1.png" alt="ArcGIS Experience Builder" class="portfolio-img">
         <div class="portfolio-body">
           <div class="portfolio-type">Esri · WebGIS Platform</div>
@@ -1369,25 +1380,4 @@
     const links = document.querySelector('.nav-links');
     mobileOpen = !mobileOpen;
     if (mobileOpen) {
-      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(10,14,26,0.97);padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid var(--border);';
-    } else {
-      links.style.cssText = 'display:none;';
-    }
-  }
-
-  // Intersection Observer for fade-in
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.animation = 'fadeInUp 0.6s ease forwards';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.timeline-item, .skill-group, .portfolio-card, .edu-card, .pub-item').forEach(el => {
-    el.style.opacity = '0';
-    observer.observe(el);
-  });
-</script>
-</body>
-</html>
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(10,14,26,0.97);padding:1.5rem 2rem;gap:
