@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" font-family="Segoe UI, Roboto, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1628"/>
+      <stop offset="1" stop-color="#0a0e1a"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4f8ef7"/>
+      <stop offset="1" stop-color="#00d4aa"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <!-- subtle grid -->
+  <g stroke="#1c2740" stroke-width="1">
+    <path d="M0 90 H640 M0 180 H640 M0 270 H640"/>
+    <path d="M160 0 V360 M320 0 V360 M480 0 V360"/>
+  </g>
+  <!-- flood inundation polygon -->
+  <path d="M120 250 Q200 210 260 250 T420 245 Q500 235 540 270 L540 320 Q420 300 320 320 T120 305 Z"
+        fill="#4f8ef7" opacity="0.22"/>
+  <!-- river course -->
+  <path d="M70 70 Q180 120 220 180 T360 230 Q470 270 580 250"
+        fill="none" stroke="url(#river)" stroke-width="7" stroke-linecap="round" opacity="0.95"/>
+  <path d="M70 70 Q180 120 220 180 T360 230 Q470 270 580 250"
+        fill="none" stroke="#4f8ef7" stroke-width="16" stroke-linecap="round" opacity="0.12"/>
+  <!-- siaga station markers -->
+  <g>
+    <circle cx="150" cy="108" r="9" fill="#2ecc71" stroke="#0a0e1a" stroke-width="2"/>
+    <circle cx="245" cy="190" r="9" fill="#f7c948" stroke="#0a0e1a" stroke-width="2"/>
+    <circle cx="370" cy="232" r="11" fill="#ff4d4d" stroke="#0a0e1a" stroke-width="2">
+      <animate attributeName="r" values="11;15;11" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="500" cy="258" r="9" fill="#f7c948" stroke="#0a0e1a" stroke-width="2"/>
+  </g>
+  <!-- title block -->
+  <text x="36" y="56" fill="#e8eaf0" font-size="30" font-weight="700">Flood Risk EWS</text>
+  <text x="38" y="80" fill="#00d4aa" font-size="15" font-weight="600" letter-spacing="1">INDONESIA · DAS BENGAWAN SOLO</text>
+  <!-- legend -->
+  <g font-size="12" fill="#9aa3b8">
+    <rect x="36" y="312" width="13" height="13" rx="2" fill="#2ecc71"/><text x="54" y="323">Aman</text>
+    <rect x="110" y="312" width="13" height="13" rx="2" fill="#f7c948"/><text x="128" y="323">Waspada</text>
+    <rect x="200" y="312" width="13" height="13" rx="2" fill="#ff4d4d"/><text x="218" y="323">Siaga</text>
+  </g>
+  <text x="604" y="48" text-anchor="end" fill="#4f8ef7" font-size="13" font-weight="600">WebGIS · Leaflet · FastAPI</text>
+</svg>
